@@ -1,0 +1,19 @@
+<form (ngSubmit)="addNewItem()">
+    <mat-form-field appearance="fill">
+        <mat-label>הקש תעודת זהות</mat-label>
+        <input matInput required maxlength="9" minlength="9" type="text" name="id" [(ngModel)]="this.empty.IdChild" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>הקש שם מלא</mat-label>
+        <input matInput type="text" required minlength="2" name="fname" [(ngModel)]="this.empty.FullName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>הקש תאריך לידה</mat-label>
+        <input matInput required [matDatepicker]="picker" name="date" [(ngModel)]="this.empty.DateOfBirth" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-button color="primary">הוספת ילד</button>
+</form>

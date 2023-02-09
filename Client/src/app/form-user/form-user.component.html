@@ -1,0 +1,87 @@
+<form (ngSubmit)="addUser()">
+    <mat-form-field appearance="fill">
+        <mat-label for="id">תעודת זהות</mat-label>
+        <input matInput type="text" id="id" [maxlength]="9" [minlength]="9" name="id" [(ngModel)]="this.empty.IdUser" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label for="first-name">שם פרטי</mat-label>
+        <input matInput (change)="edit('fname')" [minlength]="2" type="text" id="first-name" name="fname"
+            [(ngModel)]="this.empty.FirstName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>שם משפחה</mat-label>
+        <input matInput (change)="edit('lname')" [minlength]="2" type="text" name="Lname"
+            [(ngModel)]="this.empty.LastName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> תאריך לידה</mat-label>
+        <input matInput required [matDatepicker]="picker" name="date" [(ngModel)]="this.empty.Date" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>מין</mat-label>
+        <mat-select name="min" [(ngModel)]="this.empty.MaleOrFemale">
+            <mat-option value="זכר">זכר</mat-option>
+            <mat-option value="נקבה">נקבה</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>קופח</mat-label>
+        <mat-select name="hmo" [(ngModel)]="this.empty.Hmo">
+            <mat-option value="מכבי">מכבי</mat-option>
+            <mat-option value="מאוחדת">מאוחדת</mat-option>
+            <mat-option value="לאומית">לאומית</mat-option>
+            <mat-option value="כללית">כללית</mat-option>
+            <mat-option value="אחר">אחר</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div>
+        <add-child *ngIf="hasChild" (newItemEvent)="addChildToList($event)"></add-child>
+        <button mat-button color="primary" *ngIf="!hasChild" type="button" (click)="addChild()">הוסף ילד</button>
+        <ul *ngIf="hasChild">
+            <li *ngFor="let item of this.empty.Children; index as i">
+                {{item.FullName}}
+                <button mat-icon-button color="accent" type="button" aria-label="Example icon button with a menu icon"
+                    (click)="deleteChild(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div style="display: none;">
+        <table id="excel-table">
+            <tr>
+                <th>תעודת זהות</th>
+                <th>שם</th>
+                <th>תאריך לידה</th>
+            </tr>
+            <tr>
+                <th colspan="3">הורה</th>
+            </tr>
+            <tr>
+
+                <td>{{empty.IdUser}}</td>
+                <td>{{empty.FirstName}} {{empty.LastName}}</td>
+                <td>{{empty.Date}}</td>
+            </tr>
+            <tr>
+                <th colspan="3">
+                    ילדים
+                </th>
+            </tr>
+            <tr *ngFor="let item of empty.Children; index as i">
+                <td>{{item.IdChild}}</td>
+                <td>{{item.FullName}}</td>
+                <td>{{item.DateOfBirth}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <button mat-button color="primary">הרשמה</button>
+    <button mat-button color="primary" (click)="exportExcel()">יצא לקובץ</button>
+</form>
