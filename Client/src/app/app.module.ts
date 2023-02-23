@@ -11,7 +11,7 @@ import { AddChildComponent } from './add-child/add-child.component';
 import { GuidanceComponent } from './guidance/guidance.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserServiceService } from 'src/services/user-service.service';
-import { ChildServiceService } from 'src/services/child-service.service';
+//import { ChildServiceService } from 'src/services/child-service.service';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +45,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatSidenavModule
   ],
   providers: [
-    UserServiceService, ChildServiceService
+    UserServiceService//, ChildServiceService
   ],
   bootstrap: [AppComponent]
 })
